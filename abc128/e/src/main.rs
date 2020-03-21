@@ -78,6 +78,7 @@ fn solve(q: usize, works: &mut [Work], starts: &mut BTree<i32, usize>) -> Vec<i3
         for i in &intercepted {
             starts.remove(i);
         }
+        intercepted.clear();
     }
 
     return stops;
