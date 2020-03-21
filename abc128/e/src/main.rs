@@ -36,7 +36,8 @@ fn main() {
     }
 
     //let mut starts = BTreeMap::new();
-    let mut starts = BTree::<i32, usize>::new_with(7);
+    // 11 is the same as the order of rust BTreeMap
+    let mut starts = BTree::<i32, usize>::new_with(11);
     for i in 0..q {
         let d: i32 = read();
         starts.insert(d, i);
