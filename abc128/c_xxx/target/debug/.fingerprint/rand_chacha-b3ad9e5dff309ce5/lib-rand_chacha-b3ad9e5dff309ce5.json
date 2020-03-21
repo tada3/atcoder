@@ -1,0 +1,1 @@
+{"rustc":7052314952459834523,"features":"[\"c2-chacha\", \"std\"]","target":1137475736124579733,"profile":9935990280773120926,"path":18260956045372825832,"deps":[["c2-chacha v0.2.3","c2_chacha",2859916674198201661],["rand_core v0.5.1","rand_core",221178099479699373]],"local":[{"Precalculated":"0.2.1"}],"rustflags":[],"edition":"Edition2018"}
