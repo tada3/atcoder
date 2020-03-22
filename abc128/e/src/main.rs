@@ -84,27 +84,7 @@ fn solve(q: usize, works: &mut [Work], starts: &mut BTree<i32, usize>) -> Vec<i3
     return stops;
 }
 
-fn binary_search(q: usize, starts: &[i32], w: &Work) -> usize {
-    let mut lo = 0;
-    let mut hi = q - 1;
-    while lo <= hi {
-        let mid = (lo + hi) / 2;
-        if starts[mid] < w.0 {
-            if mid == q - 1 {
-                break;
-            }
-            lo = mid + 1;
-        } else if w.1 <= starts[mid] {
-            if mid == 0 {
-                break;
-            }
-            hi = mid - 1;
-        } else {
-            return mid;
-        }
-    }
-    return q;
-}
+
 
 struct BTree<K, V>
 where
@@ -267,6 +247,9 @@ where
     }
 }
 
+const CHECK_RIGHT_MOST_THRESHOLD : usize = 7;
+const USE_LINEAR_THRESHOLD : usize = 7;
+
 impl<K, V> Node<K, V>
 where
     K: Ord,
@@ -393,15 +376,54 @@ where
         return (midE, midV, right);
     }
 
+    // For small m (around 11), linear search is better than 
+    // binary search. But the plain linear search is too inefficient.
+    // I check the value of the right end and mid. This makes
+    // the performance much better (40% - 50% faster).
     fn find_pos(&self, x: &K) -> (usize, bool) {
-        for i in 0..self.ks.len() {
-            if x < &self.ks[i] {
-                return (i, false);
-            } else if x == &self.ks[i] {
+        let len = self.ks.len();
+
+        if len > CHECK_RIGHT_MOST_THRESHOLD && self.ks[len - 1] < *x {
+            return (len, false);
+        }
+
+        if len < USE_LINEAR_THRESHOLD {
+            return self.linear_search(x, 0, len);
+        }
+
+        let mid = self.ks.len() / 2;
+        if self.ks[mid] < *x {
+            return self.linear_search(x, mid + 1, len);
+        } 
+        if self.ks[mid] == *x {
+            return (mid, true);
+        }
+        return self.linear_search_reverse(x, 0, mid);
+    }
+
+    fn linear_search(&self, x: &K, start: usize, end: usize) -> (usize, bool) {
+        for i in start..end {
+            if self.ks[i] < *x {
+                continue;
+            }
+            if self.ks[i] == *x {
+                return (i, true);
+            }
+            return (i, false);
+        }
+        return (end, false);
+    }
+
+    fn linear_search_reverse(&self, x: &K, start: usize, end: usize) -> (usize, bool) {
+        for i in (start..end).rev() {
+            if self.ks[i] < *x {
+                return (i + 1, false);
+            }
+            if self.ks[i] == *x {
                 return (i, true);
             }
         }
-        return (self.ks.len(), false);
+        return (0, false);
     }
 
     fn remove_right_most(&mut self, m: usize) -> (K, V, bool) {
@@ -637,3 +659,4 @@ where
         }
     }
 }
+
