@@ -35,7 +35,6 @@ fn main() {
         works.push(w);
     }
 
-    //let mut starts = BTreeMap::new();
     // 11 is the same as the order of rust BTreeMap
     let mut starts = BTree::<i32, usize>::new_with(11);
     for i in 0..q {
@@ -44,7 +43,6 @@ fn main() {
     }
 
     let result = solve(q, &mut works, &mut starts);
-    //result.iter().for_each(|x|println!("{}", x));
     for stop in &result {
         println!("{}", stop);
     }
@@ -247,6 +245,7 @@ where
     }
 }
 
+// Associated constans are not supported in the Atcoder version of Rust.
 const CHECK_RIGHT_MOST_THRESHOLD : usize = 7;
 const USE_LINEAR_THRESHOLD : usize = 7;
 
@@ -436,9 +435,6 @@ where
         }
         // 2. Node (remove from child)
         let last = self.ns.len() - 1;
-        // self.ns.last() gets & reference. So it does not work.
-        //let child = &mut self.ns[last];
-        //let result = child.remove_right_most(m);
         let result = self.ns[last].remove_right_most(m);
         if result.2 {
             self.borrow_or_merge_from_left(last, m);
