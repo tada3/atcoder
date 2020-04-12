@@ -32,15 +32,14 @@ fn main() {
     
     for i in 0..h {
         let mut v : Vec<usize> = Vec::with_capacity(w);
-        //
-        let s = read_vec::<char>();
-        for j in 0..s.len() {
-            if s[j] == '#' {
+        let s = read::<String>();
+        for (j, c) in s.chars().enumerate() {
+            if c == '#' {
                 v.push(j);
-                shogai_tate[j].push(i);
+                shogai_tate[j].push(i)
             }
         }
-
+       
         if v.is_empty() || v[v.len()-1] < w - 1 {
             v.push(w);
         }
