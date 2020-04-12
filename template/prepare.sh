@@ -32,7 +32,7 @@ pushd ${CONTEST_NAME}
 for q in a b c d e f
 do
 	cargo new ${q}
-	cp ${TEMPLATE_DIR}/main.rs ${CONTEST_NAME}_${q}/src/
+	cp ${TEMPLATE_DIR}/main.rs ${q}/src/
 done
 
 popd
