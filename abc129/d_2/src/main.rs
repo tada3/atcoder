@@ -34,13 +34,15 @@ fn main() {
 }
 
 fn solve(h: usize, w: usize, masu: &[Vec<char>]) -> usize {
-
-    let mut dp : Vec<Vec<(usize, usize)>> = vec![vec![(0, 0);w];h];
+    let mut dp : Vec<Vec<(usize, usize)>> = vec![vec![(0, 0);w];2];
     let mut max = 0;
+    
     for i in 0..h {
         for j in 0..w {
+            let curr = i % 2;
 
             if masu[i][j] == '#' {
+                dp[curr][j] = (0, 0);
                 continue;
             }
 
@@ -50,10 +52,9 @@ fn solve(h: usize, w: usize, masu: &[Vec<char>]) -> usize {
                 while j1 < w && masu[i][j1] != '#' {
                     j1 += 1;
                 }
-                dp[i][j].0 = j1 - j - 1;
-                
+                dp[curr][j].0 = j1 - j - 1; 
             } else {
-                dp[i][j].0 = dp[i][j-1].0;
+                dp[curr][j].0 = dp[curr][j-1].0;
             }
 
             // tate
@@ -62,13 +63,13 @@ fn solve(h: usize, w: usize, masu: &[Vec<char>]) -> usize {
                 while i1 < h && masu[i1][j] != '#' {
                     i1 += 1;
                 }
-                dp[i][j].1 = i1 - i - 1;
-
+                dp[curr][j].1 = i1 - i - 1;
             } else {
-                dp[i][j].1 = dp[i-1][j].1;
+                let prev = (i-1) % 2;
+                dp[curr][j].1 = dp[prev][j].1;
             }
 
-            let val = dp[i][j].0 + dp[i][j].1;
+            let val = dp[curr][j].0 + dp[curr][j].1;
             if val > max {
                 max = val;
             }
