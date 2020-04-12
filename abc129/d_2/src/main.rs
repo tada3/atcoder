@@ -38,9 +38,8 @@ fn solve(h: usize, w: usize, masu: &[Vec<char>]) -> usize {
     let mut max = 0;
     
     for i in 0..h {
+        let curr = i % 2;
         for j in 0..w {
-            let curr = i % 2;
-
             if masu[i][j] == '#' {
                 dp[curr][j] = (0, 0);
                 continue;
@@ -65,8 +64,7 @@ fn solve(h: usize, w: usize, masu: &[Vec<char>]) -> usize {
                 }
                 dp[curr][j].1 = i1 - i - 1;
             } else {
-                let prev = (i-1) % 2;
-                dp[curr][j].1 = dp[prev][j].1;
+                dp[curr][j].1 = dp[1-curr][j].1;
             }
 
             let val = dp[curr][j].0 + dp[curr][j].1;
