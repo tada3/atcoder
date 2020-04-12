@@ -82,11 +82,7 @@ fn main() {
 
 fn solve(h: usize, w: usize, shogai_yoko: &[Vec<(usize, usize)>], shogai_tate: &[Vec<(usize, usize)>]) -> usize {
      // (yoko, tate)
-     let mut dp : Vec<Vec<usize>> = Vec::with_capacity(h);
-     for _i in 0..h {
-        let v : Vec<usize> = vec![0; w];
-        dp.push(v);
-     }
+     let mut dp : Vec<Vec<usize>> = vec![vec![0;w];h];
 
      // yoko
      for i in 0..h {
