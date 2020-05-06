@@ -5,3 +5,4 @@ authors = ["tada <tada3@outlook.com>"]
 edition = "2018"
 
 [dependencies]
+lazy_static = "0.1.*"
