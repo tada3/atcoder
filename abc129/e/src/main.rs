@@ -49,24 +49,18 @@ fn prepare(n: usize, l: &[char], m3: &mut[usize]) {
 
 fn solve(n: usize, l: &[char], m3: &[usize]) -> usize {
     let mut count = 0;
-    let mut c1 = 0;
+    let mut c1 = 1;
     for i in 0..n {
         if l[i] == '0' {
             continue;
         }
-        let remaining = n - i - 1;
-        if c1 == 0 {
-            c1 = 1;
-        } else {
-            c1 = c1 * 2 % MOD;
-        }
-        
+        let remaining = n - i - 1; 
         let c2 = m3[remaining];
         let c3 = c1 * c2 % MOD;
-
         count = (count + c3) % MOD;
+        
+        c1 = c1 * 2 % MOD;
     }
-    c1 = c1 * 2 % MOD;
     count = (count + c1) % MOD;
     return count;
 }
