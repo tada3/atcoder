@@ -59,5 +59,10 @@ fn solve(n: usize, m: usize, s: &[u32], t: &[u32]) -> i32 {
         }
     }
 
-    return sum[n][m];
+    let mut answer = sum[n][m];
+    if answer < 0 {
+        answer += MOD;
+    }
+
+    return answer;
 }
