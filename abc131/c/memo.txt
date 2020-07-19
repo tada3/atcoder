@@ -1,0 +1,44 @@
+a = b q + r
+
+
+
+
+a, b の最大公約数を s
+
+a - bq = r
+
+r は s で割り切れる
+
+逆に
+
+
+
+r = sz
+
+a = sx, b = sy
+
+x - yq = z
+
+z > s とすると
+
+x - yq > s
+
+x > y q + s
+
+sx > syq + ss
+a > bq + ss
+a - bbq > ss
+r > ss
+
+
+a = sx
+b = sy
+lcm = sxy
+gcd = s
+
+
+4 9 2 3
+
+4 5 6 7 8 9
+6 8
+6 9
