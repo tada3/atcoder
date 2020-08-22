@@ -54,19 +54,17 @@ fn prepare(m: usize, k: usize, p :u64) -> Vec<Vec<u64>> {
 fn solve(n: usize, k: usize) {
     let p : u64 = (10u32.pow(9u32) + 7) as u64;
 
-    // 1. Calculate values of combinations
+    // 1. Calculate all combinations
     let m = cmp::max(k-1, n-k+1);
     let c = prepare(m, k, p);
 
     // 2. Calculate possible ways
     for i in 1..k+1 {
-        let b = c[k-1][i-1];
-        let r = if i > n-k+1 { 
-            0
+        if i > n-k+1 { 
+            println!("0");
         } else {
-            c[n-k+1][i]
-        };
-        let t = b * r % p;
-        println!("{}", t);
+            let t =  c[n-k+1][i] * c[k-1][i-1] % p;
+            println!("{}", t);
+        }
     }
 }
